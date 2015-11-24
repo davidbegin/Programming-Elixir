@@ -1,0 +1,10 @@
+v1.
+{<<"_build/test/lib/issues/ebin/Elixir.Issues.beam">>,'Elixir.Issues',
+ <<"lib/issues.ex">>,
+ ['Elixir.Kernel'],
+ [],[],nil}.
+{<<"_build/test/lib/issues/ebin/Elixir.Issues.CLI.beam">>,'Elixir.Issues.CLI',
+ <<"lib/issues/cli.ex">>,
+ ['Elixir.Kernel','Elixir.Module'],
+ ['Elixir.OptionParser'],
+ [],nil}.

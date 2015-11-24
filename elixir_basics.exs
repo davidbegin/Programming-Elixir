@@ -44,3 +44,24 @@ IO.puts "---"
 IO.inspect Regex.run ~r{[dvo]}, "devo"
 IO.inspect Regex.scan ~r{[dvo]}, "devo"
 IO.inspect Regex.split ~r{[v]}, "devo"
+
+real_file = File.open("README.md")
+fake_file = File.open("not_a_file")
+IO.puts "---"
+IO.inspect real_file
+IO.inspect fake_file
+
+{:ok, file} = File.open("README.md")
+IO.inspect file
+
+# {:ok, file} = File.open("not_a_file") # => ** (MatchError) no match of right hand side value: {:error, :enoent}
+
+
+IO.puts "---"
+IO.inspect [1, 2, 3] ++ [99, 11, 22]
+IO.inspect [1, 2, 3] -- [11, 1]
+IO.inspect 1 in [1, 2, 3]
+IO.inspect :durf in [1, 2, 3]
+
+IO.puts "---"
+IO.inspect [age: 22, name: "Sam", email: "sam@aol.com"]
