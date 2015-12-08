@@ -1,13 +1,13 @@
-# I think it is very useful to first view list's always as
-# heads and tails.
+# Lists and Recursion
+# ---
 
-# AKA
+# I think it is very useful to first view lists, always as heads and tails.
 
 shorthand = [1, 2, 3]
 longform  = [ 1 | [ 2 | [ 3 | [] ] ] ]
 IO.puts "[ 1, 2, 3 ] == [ 1 | [ 2 | [ 3 | [] ] ] ]: #{shorthand == longform}"
 
-# so the first thing that is wierd when I work with this list,
+# so the first thing that is weird when I work with this list,
 # is I need a module and functions, I feel like there should be a way,
 # (really I am just expecting .each like in ruby!)
 
@@ -122,8 +122,16 @@ Anaximander.map([1, 2, 3], &(&1*&1) )
 Anaximander.map([1, 2, 3, 4, 5, 6], &( rem(&1, 2) == 0) )
 |> IO.inspect
 
+Anaximander.map([1, 2, 3, 4, 5, 6], &( rem(&1, 2) == 0) )
+|> IO.inspect
+
+# sometimes it is easier to visualize on the map when looking
+# and the long form version of a list.
+Anaximander.map([1 | [ 2 | [ 3 | [] ] ] ] , &( rem(&1, 2) == 0) )
+|> IO.inspect
+
 # Syntax revolution!
-# , and : are requried for 1 line, and forbidden for two!
+# , and : are required for 1 line, and forbidden for two!
 # I actually like that better, less decisions to be made
 
 
