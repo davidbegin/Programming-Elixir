@@ -135,6 +135,49 @@ Anaximander.map([1 | [ 2 | [ 3 | [] ] ] ] , &( rem(&1, 2) == 0) )
 # I actually like that better, less decisions to be made
 
 
+defmodule Summer do
+  def sum([], total), do: total
+  def sum([ head | tail ], total) do
+    sum(tail, head + total)
+  end
+end
+
+Summer.sum([1, 2, 3], 0)
+|> IO.inspect
+
+defmodule SummerV2 do
+  def sum(list), do: _sum(list, 0)
+
+  defp _sum([], total), do: total
+  defp _sum([ head | tail ], total), do: _sum(tail, head + total)
+end
+
+SummerV2.sum([1, 2, 3])
+|> IO.inspect
+
+defmodule Reducer do
+  def reduce([], total, _func), do: total
+  def reduce([ head | tail ], total, func) do
+    reduce(tail, func.(head, total), func)
+  end
+end
+
+Reducer.reduce([1, 2, 3], 0, &(&1 + &2) )
+|> IO.inspect
+
+# List and Recursion Exercises:
+
+# 1. Write a mapsum function that takes a list and a function.
+# It apples the function to each element of the list and then sums the result so:
+# MyList.mapsum [1, 2, 3], &(&1 * &1)
+
+# 2. Write a max(list) that returns the element with the maximum value in the list
+
+# 3. Writea caesar(list, n) function that adds n to each list element,
+# wrapping if the addition results in a character greater than x
+# MyList.caesar("ryvkve", 13)
+
+
 # OFFTOPIC
 # why do functions have to be scoped to modules?
 # is it just not to liter the global namespace?
