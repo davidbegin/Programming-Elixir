@@ -198,9 +198,18 @@ MapEndlessSummer.mapsum([1, 2, 3], &( &1 * 10))
 # continue rescurisvely comparing it, to the previous value
 defmodule MaxFinder do
   def max(list) do
+    _max(list, 0)
+  end
 
+  defp _max([], max), do: max
+  defp _max([ head | tail ], max) do
+    new_max = if head > max, do: head, else: max
+    _max(tail, new_max)
   end
 end
+
+MaxFinder.max([1, 2, 3, 4])
+|> IO.inspect
 
 # 3. Write a caesar(list, n) function that adds n to each list element,
 # wrapping if the addition results in a character greater than x
