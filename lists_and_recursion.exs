@@ -171,9 +171,38 @@ Reducer.reduce([1, 2, 3], 0, &(&1 + &2) )
 # It apples the function to each element of the list and then sums the result so:
 # MyList.mapsum [1, 2, 3], &(&1 * &1)
 
+defmodule MapEndlessSummer do
+  def mapsum(list, func) do
+    _map(list, func)
+      |> _sum(0)
+  end
+
+  defp _map([], _func), do: []
+  defp _map([ head | tail ], func) do
+    [ func.(head) | _map(tail, func) ]
+  end
+
+  defp _sum([], total), do: total
+  defp _sum( [ head | tail ], total) do
+    _sum(tail, head + total)
+  end
+end
+
+# MapEndlessSummer.mapsum([1, 2, 3], fn (x) -> x * 10 end)
+MapEndlessSummer.mapsum([1, 2, 3], &( &1 * 10))
+|> IO.inspect
+
 # 2. Write a max(list) that returns the element with the maximum value in the list
 
-# 3. Writea caesar(list, n) function that adds n to each list element,
+# So can I replace the total value with the max value and
+# continue rescurisvely comparing it, to the previous value
+defmodule MaxFinder do
+  def max(list) do
+
+  end
+end
+
+# 3. Write a caesar(list, n) function that adds n to each list element,
 # wrapping if the addition results in a character greater than x
 # MyList.caesar("ryvkve", 13)
 
