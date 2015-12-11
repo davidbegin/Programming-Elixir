@@ -212,9 +212,34 @@ MaxFinder.max([1, 2, 3, 4])
 |> IO.inspect
 
 # 3. Write a caesar(list, n) function that adds n to each list element,
-# wrapping if the addition results in a character greater than x
+# wrapping if the addition results in a character greater than z.
 # MyList.caesar("ryvkve", 13)
 
+# So I a need all whole alphabet
+
+defmodule CaesarCipher do
+  def caesar(list, n) do
+    _caesar(list, n)
+      |> IO.inspect
+  end
+
+  def _caesar( [] , _n ), do: []
+
+  def _caesar( [ head | tail ], n ) do
+    # TODO: make this a constant of some sort, find out the Elixir way
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    position     = :string.chr(alphabet, head) - 1
+    new_position = position + n
+    new_head     = Enum.at(alphabet, new_position)
+
+    [ new_head | _caesar(tail, n) ]
+  end
+end
+
+IO.puts "\n\n=======\n\n"
+
+CaesarCipher.caesar('hello', 2)
 
 # OFFTOPIC
 # why do functions have to be scoped to modules?
