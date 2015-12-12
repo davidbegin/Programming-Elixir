@@ -230,7 +230,7 @@ defmodule CaesarCipher do
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
     position     = :string.chr(alphabet, head) - 1
-    new_position = position + n
+    new_position = rem(position + n, 26)
     new_head     = Enum.at(alphabet, new_position)
 
     [ new_head | _caesar(tail, n) ]
@@ -239,7 +239,7 @@ end
 
 IO.puts "\n\n=======\n\n"
 
-CaesarCipher.caesar('hello', 2)
+CaesarCipher.caesar('hello', 27)
 
 # OFFTOPIC
 # why do functions have to be scoped to modules?
