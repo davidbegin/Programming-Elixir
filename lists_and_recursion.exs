@@ -3,6 +3,14 @@
 
 # I think it is very useful to first view lists, always as heads and tails.
 
+# Random Helper functions for fun
+defmodule S do
+  def s do
+    IO.puts "\n\n=======\n\n"
+  end
+end
+# ===============================
+
 shorthand = [1, 2, 3]
 longform  = [ 1 | [ 2 | [ 3 | [] ] ] ]
 IO.puts "[ 1, 2, 3 ] == [ 1 | [ 2 | [ 3 | [] ] ] ]: #{shorthand == longform}"
@@ -235,12 +243,61 @@ defmodule CaesarCipher do
   end
 end
 
+
 IO.puts "\n\n=======\n\n"
 
 CaesarCipher.caesar('hello', 27)
 
+IO.puts "\n\n=======\n\n"
+
+list = [ 1, 2, 3, 4, 5, 6 ]
+
+defmodule Swapper do
+  def swap([]), do: []
+  def swap([ a, b | tail ]), do: [ b, a | swap(tail) ]
+  def swap([_a_single_argument]) do
+    raise "Odd number of elements in that list, Go Away!"
+  end
+end
+
+Swapper.swap(list)
+|> IO.inspect
+
+S.s
+
+defmodule WeatherHistory do
+  def for_location_27([]), do: []
+  def for_location_27( [ [ timestamp, 27, tempature, rainfall ] | tail ]) do
+    [ [ timestamp, 27, tempature, rainfall ] | for_location_27(tail) ]
+  end
+  def for_location_27([ _ | tail ]), do: for_location_27(tail)
+
+  # This could also be written as
+  # def for_location_27([ timestamp, location_id, tempature, rainfall | tail ]) do
+  #   for_location_27(tail)
+  # end
+end
+
+defmodule WeatherData do
+  def data do
+    [
+      [1366334522, 30, 15, 0.0125],
+      [1366344522, 29, 15, 0.02],
+      [1366224522, 26, 21, 0.035],
+      [1366224522, 27, 16, 0.04],
+      [1366224522, 31, 15, 0.019],
+      [1366223522, 26, 15, 0.016],
+      [1366245555, 27, 15, 0.0125],
+      [1366224522, 33, 15, 0.015],
+      [1366214533, 30, 20, 0.0145],
+      [1366554522, 27, 21, 0.029]
+    ]
+  end
+end
 
 
+WeatherHistory.for_location_27(WeatherData.data)
+|> IO.inspect
 
 
 
