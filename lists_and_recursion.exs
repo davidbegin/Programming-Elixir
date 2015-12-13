@@ -219,27 +219,32 @@ MaxFinder.max([1, 2, 3, 4])
 
 defmodule CaesarCipher do
   def caesar(list, n) do
-    _caesar(list, n)
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+    _caesar(list, n, alphabet)
       |> IO.inspect
   end
 
-  def _caesar( [] , _n ), do: []
+  def _caesar( [] , _n, _alphabet ), do: []
 
-  def _caesar( [ head | tail ], n ) do
-    # TODO: make this a constant of some sort, find out the Elixir way
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+  def _caesar( [ head | tail ], n, alphabet ) do
+    new_position = (:string.chr(alphabet, head) - 1) + n
+      |> rem(26)
 
-    position     = :string.chr(alphabet, head) - 1
-    new_position = rem(position + n, 26)
-    new_head     = Enum.at(alphabet, new_position)
-
-    [ new_head | _caesar(tail, n) ]
+    [ Enum.at(alphabet, new_position) | _caesar(tail, n, alphabet) ]
   end
 end
 
 IO.puts "\n\n=======\n\n"
 
 CaesarCipher.caesar('hello', 27)
+
+
+
+
+
+
+
 
 # OFFTOPIC
 # why do functions have to be scoped to modules?
