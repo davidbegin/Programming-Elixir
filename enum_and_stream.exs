@@ -128,3 +128,86 @@ S.s
 
 hands = deck |> shuffle |> chunk(13)
 IO.inspect hands
+
+S.s
+
+# Implemnt the following for a new Enum:
+# all?
+# each
+# filter
+# split
+# take
+
+# all?
+
+defmodule NewAndImprovedEnum do
+  def all?(list, func) do
+    all_compiled = true
+    _all?(list, func, all_compiled)
+  end
+
+  def _all?([], _func, all_compiled), do: all_compiled
+  def _all?([ head | tail ], func, all_compiled) do
+    result = func.(head)
+    if result == false do
+      all_compiled = false
+    end
+    _all?(tail, func, all_compiled)
+  end
+end
+
+# So how does all? work?
+# I need to go through each element of the list recusivly and check if it fulfils the anon
+# function
+
+list = [1, 2, 3, 4]
+result = NewAndImprovedEnum.all?( list, &( &1 > 2 ) )
+IO.inspect result
+result = NewAndImprovedEnum.all?( list, &( &1 > 0 ) )
+IO.inspect result
+
+S.s
+
+# each
+
+defmodule NewAndImprovedEnum do
+  def each(list, func) do
+    _each(list, func)
+  end
+
+  def _each([], _func), do: []
+  def _each([ head | tail ], func) do
+    [ func.(head) | _each(tail, func) ]
+  end
+end
+
+list = [1, 2, 3, 4, 5]
+NewAndImprovedEnum.each( list, &( &1 * 10 ) )
+|> IO.inspect
+
+S.s
+
+# filter
+
+defmodule NewAndImprovedEnum do
+  def filter(list, func) do
+    _filter(list, func)
+  end
+
+  def _filter([], _func), do: []
+  def _filter([ head | tail ], func) do
+    if func.(head) == false do
+      _filter(tail, func)
+    else
+      [  head | _filter(tail, func) ]
+    end
+  end
+end
+
+list = [1, 2, 3, 4, 5]
+NewAndImprovedEnum.filter( list, &Integer.is_even(&1) )
+|> IO.inspect
+
+S.s
+
+# split
