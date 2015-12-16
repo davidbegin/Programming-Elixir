@@ -217,13 +217,16 @@ defmodule NewAndImprovedEnum do
     _split(list, split_index, 0, [], [])
   end
 
-  def _split([], _split_index, _index, front, back), do: { front, back }
-  def _split([ head | tail ], split_index, index, front, back) do
-    if index < split_index do
-      _split(tail, split_index, index + 1, [ head | front ], back)
-    else
-      _split(tail, split_index, index + 1, front, [ head | back ])
-    end
+  defp _split([], _split_index, _index, front, back), do: { front, back }
+  defp _split([ head | tail ], split_index, index, front, back) do
+    sort_item_into_place(head, tail, split_index, index, front, back)
+  end
+
+  defp sort_item_into_place(head, tail, split_index, index, front, back) when index < split_index do
+    _split(tail, split_index, index + 1, [ head | front ], back)
+  end
+  defp sort_item_into_place(head, tail, split_index, index, front, back) when index >= split_index do
+    _split(tail, split_index, index + 1, front, [ head | back ])
   end
 end
 
