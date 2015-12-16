@@ -211,3 +211,23 @@ NewAndImprovedEnum.filter( list, &Integer.is_even(&1) )
 S.s
 
 # split
+
+defmodule NewAndImprovedEnum do
+  def split(list, split_index) do
+    _split(list, split_index, 0, [], [])
+  end
+
+  def _split([], _split_index, _index, front, back), do: { front, back }
+  def _split([ head | tail ], split_index, index, front, back) do
+    if index < split_index do
+      _split(tail, split_index, index + 1, [ head | front ], back)
+    else
+      _split(tail, split_index, index + 1, front, [ head | back ])
+    end
+  end
+end
+
+list = [1, 2, 3, 4, 5]
+NewAndImprovedEnum.split( list, 2 )
+|> IO.inspect
+
