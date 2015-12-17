@@ -234,3 +234,24 @@ list = [1, 2, 3, 4, 5]
 NewAndImprovedEnum.split( list, 2 )
 |> IO.inspect
 
+S.s
+
+# take
+
+defmodule NewAndImprovedEnum do
+  def take(list, num) do
+    _take(list, num, [], 0)
+  end
+
+  def _take([], num, acc, index), do: acc
+  def _take([ head | tail ], num, acc, index) do
+    if index <= num do
+      _take(tail, num, acc ++ [head], index + 1)
+    else
+      _take([], num, acc, index)
+    end
+  end
+end
+
+list = [1, 2, 3, 4, 5, 6, 7, 8]
+NewAndImprovedEnum.take(list, 5) |> IO.inspect
