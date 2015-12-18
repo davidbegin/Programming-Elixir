@@ -255,3 +255,73 @@ end
 
 list = [1, 2, 3, 4, 5, 6, 7, 8]
 NewAndImprovedEnum.take(list, 5) |> IO.inspect
+
+S.s
+
+# Write a flatten(list) function that takes a list that may contain any
+# number of sublists, which themselves may contain sublists, to any depth
+# it returns the elements of these lists as a flat list.
+
+# MyList.flatten([ 1, [ 2, 3, [4] ], 5], [[[[6]]]])
+# [1, 2, 3, 4, 5, 6]
+
+
+# UNDER CONSTRUCTION
+defmodule NewAndImprovedEnum do
+  def flatten(list) do
+    _flatten(list, [])
+  end
+
+  # I am not sure what to do!
+  defp _flatten([], acc), do: acc
+  defp _flatten([ [ head | tail ] | tail ], acc) do
+  end
+  defp _flatten([ head | tail ], acc) do
+    # So I need to continue unwrapping a value until its no longer an array,
+    # once its a value, we add it to the acc
+  end
+end
+
+# might need Enum.reverse
+
+NewAndImprovedEnum.flatten([ 1, [ 2, 3, [4] ], 5, [[[[6]]]]])
+|> IO.inspect
+
+S.s
+
+[1, 2, 3, 4, 5]
+|> Enum.map(&(&1*&1))
+|> Enum.with_index
+|> Enum.map(fn { value, index } -> value - index end)
+|> IO.inspect
+
+S.s
+
+# IO.puts File.read!("/usr/share/dict/words")
+# |> String.split
+# |> Enum.max_by(&String.length/1)
+
+S.s
+
+squares = Stream.map [1, 2, 3], &(&1*&1)
+add_one = Stream.map squares, &(&1 + 1)
+cubes   = Stream.map add_one, &(&1*&1*&1)
+cubes |> IO.inspect
+
+result = Enum.to_list cubes
+IO.inspect result
+
+S.s
+
+IO.puts File.open!("/usr/share/dict/words")
+|> IO.stream(:line)
+|> Enum.max_by(&String.length/1)
+
+IO.puts File.stream!("/usr/share/dict/words")
+|> Enum.max_by(&String.length/1)
+
+S.s
+
+Enum.map(1..10_000_000, &(&1+1)) |> Enum.take(500) |> IO.inspect
+
+Stream.map(1..10_000_000, &(&1+1)) |> Enum.take(500) |> IO.inspect
