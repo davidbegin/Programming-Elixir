@@ -325,3 +325,11 @@ S.s
 Enum.map(1..10_000_000, &(&1+1)) |> Enum.take(500) |> IO.inspect
 
 Stream.map(1..10_000_000, &(&1+1)) |> Enum.take(500) |> IO.inspect
+
+S.s
+
+[1, 2, 3, 4, 5]
+|> Stream.map(&(&1*&1))
+|> Enum.with_index
+|> Stream.map(fn { value, index } -> value - index end)
+|> IO.inspect
