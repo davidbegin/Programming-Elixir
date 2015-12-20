@@ -313,18 +313,20 @@ IO.inspect result
 
 S.s
 
-IO.puts File.open!("/usr/share/dict/words")
-|> IO.stream(:line)
-|> Enum.max_by(&String.length/1)
-
-IO.puts File.stream!("/usr/share/dict/words")
-|> Enum.max_by(&String.length/1)
+# Commented out to not have to wait for other scripts
+# IO.puts File.open!("/usr/share/dict/words")
+# |> IO.stream(:line)
+# |> Enum.max_by(&String.length/1)
+#
+# IO.puts File.stream!("/usr/share/dict/words")
+# |> Enum.max_by(&String.length/1)
 
 S.s
 
-Enum.map(1..10_000_000, &(&1+1)) |> Enum.take(500) |> IO.inspect
-
-Stream.map(1..10_000_000, &(&1+1)) |> Enum.take(500) |> IO.inspect
+# Commented out to not have to wait for other scripts
+# Enum.map(1..10_000_000, &(&1+1)) |> Enum.take(5) |> IO.inspect
+#
+# Stream.map(1..10_000_000, &(&1+1)) |> Enum.take(5) |> IO.inspect
 
 S.s
 
@@ -333,3 +335,34 @@ S.s
 |> Enum.with_index
 |> Stream.map(fn { value, index } -> value - index end)
 |> IO.inspect
+
+S.s
+
+# Stream.cycle(["green", "white"])
+Stream.cycle(~w{ green white })
+  |> Stream.zip(1..5)
+  |> Enum.map(fn {class, value} -> ~s{<tr class="#{class}"><td>#{value}</td></tr>\e} end )
+  |> IO.inspect
+
+S.s
+
+Stream.repeatedly(fn -> true end) |> Enum.take(5) |> IO.inspect
+
+S.s
+
+Stream.iterate(0, &(&1+1))  |> Enum.take(5) |> IO.inspect
+Stream.iterate(2, &(&1*&1)) |> Enum.take(5) |> IO.inspect
+Stream.iterate([], &([&1]))   |> Enum.take(5) |> IO.inspect
+
+S.s
+
+# So unfold is a little more complicated
+# the general form it takes is:
+
+# the state is a tuple of the current nu,ber and next number in the sequence
+# fn state -> { stream_value, new_statue } end
+
+Stream.unfold({0,1}, fn {f1, f2} -> {f1, {f2, f1+f2}} end) |> Enum.take(15) |> IO.inspect
+
+
+
