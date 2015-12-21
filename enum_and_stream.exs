@@ -352,17 +352,60 @@ S.s
 
 Stream.iterate(0, &(&1+1))  |> Enum.take(5) |> IO.inspect
 Stream.iterate(2, &(&1*&1)) |> Enum.take(5) |> IO.inspect
-Stream.iterate([], &([&1]))   |> Enum.take(5) |> IO.inspect
+Stream.iterate([], &([&1])) |> Enum.take(5) |> IO.inspect
 
 S.s
 
 # So unfold is a little more complicated
 # the general form it takes is:
 
-# the state is a tuple of the current nu,ber and next number in the sequence
 # fn state -> { stream_value, new_statue } end
 
-Stream.unfold({0,1}, fn {f1, f2} -> {f1, {f2, f1+f2}} end) |> Enum.take(15) |> IO.inspect
+# the state is a tuple of the current number and next number in the sequence
 
+Stream.unfold({0,1}, fn {f1, f2} -> {f1, {f2, f1+f2}} end)
+|> Enum.take(15)
+|> IO.inspect
 
+# Lets try and unpack unfold a little more
 
+# So we need to supply it with the current number and next number in the sequence,
+# and then it is going to be passed to unfold
+
+# lets unpack the function
+fn { f1, f2 } -> { f1, { f2, f1 + f2 } } end
+
+# so do functions passed to unfold, always need to take a tuple of two?
+
+# and what do functions need to return,
+# this one returns { 0, { 1, 1 } }
+
+S.s
+
+IO.puts "\e[35;1;4munfold Breakdown\e[0m\n"
+
+defmodule Unfolder do
+  def unfold(unfold_fn) do
+    Stream.unfold({ 0, 1 }, unfold_fn)
+    |> Enum.take(10)
+    |> IO.inspect
+  end
+end
+
+unfold_fn = fn { f1, f2 } -> { f1, { f2, f2 + 1 } } end
+Unfolder.unfold(unfold_fn)
+
+unfold_fn = fn { f1, f2 } -> { f1 + 1, { f2, f2 + 1 } } end
+Unfolder.unfold(unfold_fn)
+
+unfold_fn = fn { f1, f2 } -> { f1 + 1, { f2, f2 + 5 } } end
+Unfolder.unfold(unfold_fn)
+
+unfold_fn = fn { f1, f2 } -> { f1, { f2, f2 - 1 } } end
+Unfolder.unfold(unfold_fn)
+
+S.s
+
+stream = Stream.unfold("hełło", &String.next_codepoint/1)
+|> Enum.take(4)
+|> IO.inspect
