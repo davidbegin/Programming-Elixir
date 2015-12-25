@@ -409,3 +409,20 @@ S.s
 stream = Stream.unfold("hełło", &String.next_codepoint/1)
 |> Enum.take(4)
 |> IO.inspect
+
+S.s
+
+resource = Stream.resource(fn -> File.open("README.md") end,
+  fn file ->
+    case IO.read(file, :line) do
+      line when is_binary(line) -> { [line], file }
+      _ -> {:halt, file}
+    end
+  end,
+  fn file -> File.close!(file) end)
+
+# So Stream.resource takes 3 arguments
+
+# a function for opening the resource,
+# what do do with the resource
+# how to close the connection to the resource
