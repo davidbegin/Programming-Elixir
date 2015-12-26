@@ -426,3 +426,17 @@ resource = Stream.resource(fn -> File.open("README.md") end,
 # a function for opening the resource,
 # what do do with the resource
 # how to close the connection to the resource
+
+open_func = fn -> File.open("README.md") end
+
+work_func = fn file ->
+   case IO.read(file, :line) do
+     line when is_binary(line) -> { [line], file }
+     _ -> {:halt, file}
+   end
+  end
+
+close_func = fn file -> File.close!(file) end
+
+resource = Stream.resource(open_func, work_func, close_func)
+

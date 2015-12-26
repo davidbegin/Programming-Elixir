@@ -1,16 +1,18 @@
 v1.
+{<<"_build/dev/lib/issues/ebin/Elixir.Issues.CLI.beam">>,'Elixir.Issues.CLI',
+ <<"lib/issues/cli.ex">>,
+ ['Elixir.Kernel','Elixir.Module'],
+ ['Elixir.Issues.GithubIssues','Elixir.OptionParser','Elixir.String.Chars',
+  'Elixir.IO','Elixir.System'],
+ [],nil}.
 {<<"_build/dev/lib/issues/ebin/Elixir.Issues.beam">>,'Elixir.Issues',
  <<"lib/issues.ex">>,
  ['Elixir.Kernel'],
  [],[],nil}.
 {<<"_build/dev/lib/issues/ebin/Elixir.Issues.GithubIssues.beam">>,
  'Elixir.Issues.GithubIssues',<<"lib/issues/github_issues.ex">>,
- ['Elixir.Kernel','Elixir.Module'],
- ['Elixir.String.Chars','Elixir.HTTPoison',jsx],
- [],nil}.
-{<<"_build/dev/lib/issues/ebin/Elixir.Issues.CLI.beam">>,'Elixir.Issues.CLI',
- <<"lib/issues/cli.ex">>,
- ['Elixir.Kernel','Elixir.Module'],
- ['Elixir.OptionParser','Elixir.Issues.GithubIssues','Elixir.String.Chars',
-  'Elixir.IO','Elixir.System'],
+ ['Elixir.Application','Elixir.Kernel','Elixir.Module'],
+ ['Elixir.HTTPoison',erlang,'Elixir.Enum','Elixir.Access',
+  'Elixir.String.Chars','Elixir.List','Elixir.HashDict','Elixir.IO',
+  'Elixir.System',jsx],
  [],nil}.
