@@ -1,8 +1,3 @@
-# Lists and Recursion
-# ---
-
-# I think it is very useful to first view lists, always as heads and tails.
-
 # Random Helper functions for fun
 defmodule S do
   def s do
@@ -11,9 +6,19 @@ defmodule S do
 end
 # ===============================
 
+# Lists and Recursion
+# ---
+
+# When first working with lists, I found it very useful to always view lists
+# as heads and tails.
+
 shorthand = [1, 2, 3]
 longform  = [ 1 | [ 2 | [ 3 | [] ] ] ]
 IO.puts "[ 1, 2, 3 ] == [ 1 | [ 2 | [ 3 | [] ] ] ]: #{shorthand == longform}"
+
+# This really helps when thinking of processing a list recursively.
+# Once you start thinking of the simple [1, 2, 3] syntax,
+# as a syntax sugar, it helps internalize the real structure.
 
 # so the first thing that is weird when I work with this list,
 # is I need a module and functions, I feel like there should be a way,
