@@ -20,20 +20,6 @@ IO.puts "[ 1, 2, 3 ] == [ 1 | [ 2 | [ 3 | [] ] ] ]: #{shorthand == longform}"
 # Once you start thinking of the simple [1, 2, 3] syntax,
 # as a syntax sugar, it helps internalize the real structure.
 
-# so the first thing that is weird when I work with this list,
-# is I need a module and functions, I feel like there should be a way,
-# (really I am just expecting .each like in ruby!)
-
-# So it has made be realize, for now, I am going to make a concious decision
-# to immediately it make a module, and start with functions.
-# This is the re-programming, I need!
-
-# This immeaditely makes me think what should these modules
-# be named after, but that is me jumping ahead!
-
-# I would really like a long list of exercise to get my mind thinking
-# right about lists and recursion.
-
 # Exercise 1
 
 # Find the length of a list
@@ -45,12 +31,6 @@ end
 
 LengthFinder.len([1, 2, 3])
 |> IO.puts
-
-# the comma and colon are confusing me on functions
-# So I am going to start using them more librelly,
-# as well as try and write the short hand more,
-# my ruby-tendencies want me to write them out with do...end
-# but I'm trying to break habits
 
 # Exercise 2
 
