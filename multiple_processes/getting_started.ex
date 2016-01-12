@@ -127,6 +127,8 @@ defmodule Chain do
     end
   end
 
+  # This method takes how long the Chain will be
+  # If then output the Result of timing Chain.create_processes with said number
   def run(n) do
     IO.puts inspect :timer.tc(Chain, :create_processes, [n])
   end
@@ -134,19 +136,26 @@ end
 
 Chain.run(100000)
 
+IO.puts "\n=====================================\n"
 
+defmodule Link1 do
+  import :timer, only: [ sleep: 1 ]
 
+  def sad_function do
+    sleep 500
+    exit(:boom)
+  end
 
+  def run do
+    Process.flag(:trap_exit, true)
+    spawn(Link1, :sad_function, [])
+    receive do
+      msg ->
+        IO.puts "MESSAGE RECEIVED: #{inspect msg}"
+    after 1000 ->
+      IO.puts "Nothing happened as far as I am concered"
+    end
+  end
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
+Link1.run
